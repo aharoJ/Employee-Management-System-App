@@ -1,5 +1,7 @@
 package io.aharoj.backend.service.impl;
 
+import java.util.List;
+
 import org.springframework.stereotype.Service;
 
 import io.aharoj.backend.dto.EmployeeDto;
@@ -26,6 +28,19 @@ public class EmployeeServiceImpl implements EmployeeService {
     Employee employee = EmployeeMapper.mapToEmployee(employeeDto);
     Employee savedEmployee = employeeRepository.save(employee);
     return EmployeeMapper.mapToEmployeeDto(savedEmployee);
+  }
+
+  @Override
+  public EmployeeDto getEmployee(Long employeeId) {
+    Employee employee = employeeRepository.findById(employeeId)
+        .orElseThrow(() -> new RuntimeException("Employee not found with ID: " + employeeId));
+    return EmployeeMapper.mapToEmployeeDto(employee);
+  }
+
+  @Override
+  public List<EmployeeDto> getAllEmployees() {
+    // TODO Auto-generated method stub
+    throw new UnsupportedOperationException("Unimplemented method 'getAllEmployees'");
   }
 
 }
