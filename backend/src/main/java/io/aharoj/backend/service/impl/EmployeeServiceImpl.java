@@ -1,6 +1,7 @@
 package io.aharoj.backend.service.impl;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Service;
 
@@ -39,8 +40,8 @@ public class EmployeeServiceImpl implements EmployeeService {
 
   @Override
   public List<EmployeeDto> getAllEmployees() {
-    // TODO Auto-generated method stub
-    throw new UnsupportedOperationException("Unimplemented method 'getAllEmployees'");
+    List<Employee> employees = employeeRepository.findAll();
+    return employees.stream().map((employee) -> EmployeeMapper.mapToEmployeeDto(employee)).collect(Collectors.toList());
   }
 
 }
