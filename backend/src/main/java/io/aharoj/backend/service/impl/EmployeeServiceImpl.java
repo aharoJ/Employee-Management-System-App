@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import io.aharoj.backend.dto.EmployeeDto;
 import io.aharoj.backend.entity.Employee;
+import io.aharoj.backend.exeption.ResourceNotFoundExeption;
 import io.aharoj.backend.mapper.EmployeeMapper;
 import io.aharoj.backend.repository.EmployeeRepository;
 import io.aharoj.backend.service.EmployeeService;
@@ -42,6 +43,24 @@ public class EmployeeServiceImpl implements EmployeeService {
   public List<EmployeeDto> getAllEmployees() {
     List<Employee> employees = employeeRepository.findAll();
     return employees.stream().map((employee) -> EmployeeMapper.mapToEmployeeDto(employee)).collect(Collectors.toList());
+  }
+
+  @Override
+  public EmployeeDto updateEmployee(Long employeeId, EmployeeDto updatedEmployee) {
+    Employee employee = employeeRepository.findById(employeeId).orElseThrow(
+        () -> new ResourceNotFoundExeption("Employee with id: " + employeeId + "does NOT exist"));
+    employee.setFirstName(updatedEmployee.getFirstName());
+    employee.setLastName(updatedEmployee.getLastName());
+    employee.setEmail(updatedEmployee.getEmail());
+    Employee updatedEmployeeObject = employeeRepository.save(employee);
+    return EmployeeMapper.mapToEmployeeDto(updatedEmployeeObject);
+  }
+
+  @Override
+  public void deleteEmployee(Long employeeId) {
+    Employee employee = employeeRepository.findById(employeeId).orElseThrow(
+        () -> new ResourceNotFoundExeption("Employee with id: " + employeeId + "does NOT exist"));
+    employeeRepository.deleteById(employeeId);
   }
 
 }

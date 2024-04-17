@@ -17,4 +17,10 @@ public interface EmployeeService {
   // our @Get for all employees
   List<EmployeeDto> getAllEmployees();
 
+  // our @Put for updating an employee
+  EmployeeDto updateEmployee(Long employeeId, EmployeeDto updatedEmployee);
+
+  // our @Delete for deleting an employee
+  void deleteEmployee(Long employeeId);
+
 }
