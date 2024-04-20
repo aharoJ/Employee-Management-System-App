@@ -1,10 +1,22 @@
 import "./App.css";
+import FooterComponent from "./components/FooterComponent";
+import HeaderComponent from "./components/HeaderComponent";
 import ListEmployeeComponent from "./components/ListEmployeeComponent";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 function App() {
   return (
     <>
-      <ListEmployeeComponent/>
+      <BrowserRouter>
+        <HeaderComponent />
+        <Routes>
+          {/* Localhost:3000 */}
+          <Route path="/" element={<ListEmployeeComponent />}></Route>
+          {/* Localhost:3000/employees */}
+          <Route path="/employees" element={<ListEmployeeComponent />}></Route>
+        </Routes>
+        <FooterComponent />
+      </BrowserRouter>
     </>
   );
 }
