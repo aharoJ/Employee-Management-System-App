@@ -8,6 +8,9 @@
 git clone https://github.com/aharoJ/EmployeeManagementSystemApp.git
 ```
 
+---
+
+
 ## Backend
 
 ```sh
@@ -27,6 +30,9 @@ spring.datasource.password=YOUR_PASSWORD
 ```sh
  ./mvnw clean spring-boot:run
 ```
+
+---
+
 
 ## Frontend
 
