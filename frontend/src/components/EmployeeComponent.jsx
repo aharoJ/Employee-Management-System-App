@@ -1,11 +1,13 @@
 import React, { useState } from "react";
 import { createEmployee } from "../services/EmployeeService";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 
 const EmployeeComponent = () => {
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [email, setEmail] = useState("");
+
+  const { id } = useParams();
 
   const [errors, setErrors] = useState({
     firstName: "",
@@ -58,10 +60,22 @@ const EmployeeComponent = () => {
 
     return valid;
   }
+
+  function pageTitle() {
+    if (id) {
+      return <h2 className="text-2xl font-bold mb-8">Update Employee</h2>
+    } else {
+      return <h2 className="text-2xl font-bold mb-8">Add Employee</h2>
+
+    }
+
+  }
   return (
     <>
       <div className="flex flex-col items-center justify-center p-8">
-        <h2 className="text-2xl font-bold mb-8">Add Employee</h2>
+        {
+          pageTitle()
+        }
         <form className="w-full max-w-lg" onSubmit={saveEmployee}>
           <div className="flex flex-wrap -mx-3 mb-6 border border-red-500">
             <div className="w-full px-3 my-3 ">
