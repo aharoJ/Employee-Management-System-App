@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { createEmployee, getEmployee } from "../services/EmployeeService";
+import { createEmployee, getEmployee, updateEmployee } from "../services/EmployeeService";
 import { useNavigate, useParams } from "react-router-dom";
 
 const EmployeeComponent = () => {
@@ -30,17 +30,29 @@ const EmployeeComponent = () => {
 
   }, [id])
 
-  function saveEmployee(e) {
+  function saveOrUpdateEmployee(e) {
     e.preventDefault();
+    const employee = { firstName, lastName, email };
+    console.log(employee); // print employee Obj
 
     if (validateForm()) {
-      const employee = { firstName, lastName, email };
-      console.log(employee); // print employee Obj
+      if (id) {
+        updateEmployee(id, employee).then((response) => {
+          console.log(response.data)
+          navigator("/employees")
+        }).catch(error => {
+          console.error(error);
+        })
 
-      createEmployee(employee).then((response) => {
-        console.log(response.data);
-        navigator("/employees");
-      });
+      } else {
+
+        createEmployee(employee).then((response) => {
+          console.log(response.data);
+          navigator("/employees");
+        }).catch(error => {
+          console.error(error);
+        })
+      }
     }
   }
 
@@ -89,7 +101,8 @@ const EmployeeComponent = () => {
         {
           pageTitle()
         }
-        <form className="w-full max-w-lg" onSubmit={saveEmployee}>
+        {/* <form className="w-full max-w-lg" onSubmit={saveEmployee}> */}
+        <form className="w-full max-w-lg" >
           <div className="flex flex-wrap -mx-3 mb-6 border border-red-500">
             <div className="w-full px-3 my-3 ">
               <label
@@ -162,6 +175,7 @@ const EmployeeComponent = () => {
                 className="bg-green-500 hover:bg-green-700 text-white 
                   font-bold py-2 px-4 text-xl rounded focus:outline-none focus:shadow-outline"
                 type="submit"
+                onClick={saveOrUpdateEmployee}
               >
                 Submit
               </button>
