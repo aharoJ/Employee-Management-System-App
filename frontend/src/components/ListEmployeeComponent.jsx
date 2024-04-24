@@ -17,14 +17,17 @@ const ListEmployeeComponent = () => {
   }, []);
 
   function addEmployee() {
-    navigator("/add-employee")
+    navigator("/add-employee");
   }
 
   return (
     <>
       <div>
         <h2 className="text-xl font-semibold mb-4">List of Employees</h2>
-        <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" onClick={addEmployee}>
+        <button
+          className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+          onClick={addEmployee}
+        >
           Add Employee
         </button>
         <table className="table-auto  border-spacing-2  w-full text-left whitespace-no-wrap">

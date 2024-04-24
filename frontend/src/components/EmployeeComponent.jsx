@@ -1,27 +1,26 @@
 import React, { useState } from "react";
+import { createEmployee } from "../services/EmployeeService";
+import { useNavigate } from "react-router-dom";
+
 
 const EmployeeComponent = () => {
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [email, setEmail] = useState("");
+  const navigator= useNavigate();
 
-  function handleFirstName(e) {
-    setFirstName(e.target.value);
-  }
-
-  function handleLastName(e) {
-    setLastName(e.target.value);
-  }
-
-  function handleEmail(e) {
-    setEmail(e.target.value);
-  }
   function saveEmployee(e) {
     e.preventDefault();
 
     const employee = { firstName, lastName, email };
     console.log(employee); // print employee Obj
+
+    createEmployee(employee).then((response) => {
+      console.log(response.data);
+      navigator("/employees")
+    })
   }
+
   return (
     <>
       <div className="flex flex-col items-center justify-center p-8">
@@ -42,7 +41,7 @@ const EmployeeComponent = () => {
                 type="text"
                 placeholder="Enter Employee First Name"
                 value={firstName}
-                onChange={handleFirstName}
+                onChange={(e) => setFirstName(e.target.value)}
               />
             </div>
 
@@ -60,7 +59,7 @@ const EmployeeComponent = () => {
                 type="text"
                 placeholder="Enter Employee Last Name"
                 value={lastName}
-                onChange={handleLastName}
+                onChange={(e) => setLastName(e.target.value)}
               />
             </div>
             <div className="w-full px-3 my-3 ">
@@ -77,7 +76,7 @@ const EmployeeComponent = () => {
                 type="email"
                 placeholder="Enter Employee Email"
                 value={email}
-                onChange={handleEmail}
+                onChange={(e) => setEmail(e.target.value)}
               />
             </div>
             <div className="w-full p-3 mb-3">
