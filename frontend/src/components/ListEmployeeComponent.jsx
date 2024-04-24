@@ -30,7 +30,7 @@ const ListEmployeeComponent = () => {
         >
           Add Employee
         </button>
-        <table className="table-auto  border-spacing-2  w-full text-left whitespace-no-wrap">
+        <table className="table-auto  border-spacing-2  w-full text-left whitespace-no-wrap justify-center self-center items-center"> 
           <thead>
             <tr className="bg-gray-100">
               <th className="px-4 py-2 border border-slate-600 title-font tracking-wider font-medium text-gray-900 text-sm bg-gray-100 rounded-tl rounded-bl">
@@ -43,8 +43,12 @@ const ListEmployeeComponent = () => {
                 Employee Last Name
               </th>
               <th className="px-4 py-2 border border-slate-600 title-font tracking-wider font-medium text-gray-900 text-sm bg-gray-100 rounded-tr rounded-br">
-                Employee Email
+                Employee Email Id
               </th>
+              <th className="px-4 py-2 border border-slate-600 title-font tracking-wider font-medium text-gray-900 text-sm bg-gray-100 rounded-tr rounded-br">
+                Actions
+              </th>
+
             </tr>
           </thead>
           <tbody>
@@ -64,6 +68,16 @@ const ListEmployeeComponent = () => {
                 </td>
                 <td className="px-4 border border-slate-600 py-3">
                   {employee.email}
+                </td>
+                <td className="px-4 border border-slate-600 py-3">
+                  <button
+                    type="button"
+                    className="px-3 py-2 border border-transparent text-base font-medium rounded-md text-white 
+                    bg-blue-600 hover:bg-blue-700 "
+                    onClick={()=> updateEmployee(employee.id)}
+                  >
+                    Update
+                  </button>
                 </td>
               </tr>
             ))}
